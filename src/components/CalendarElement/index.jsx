@@ -2,13 +2,12 @@ import React from "react";
 import "./style.css";
 import { Typography } from "@material-ui/core";
 import dayjs from "dayjs";
-import { isSameMonth, isFirstDay, isSameDay, getMonth } from "../../services/calendar";
+import { isSameMonth, isSameDay, getMonth } from "../../services/calendar";
+import Schedule from "../Schedule";
 
-const CalendarElement = ({ day, month }) => {
+const CalendarElement = ({ day, month, schedules, ...props }) => {
+
   const today = dayjs();
-
-
-
   const isToday = isSameDay(day, today);
   const currentMonth = getMonth(month);
   const isCurrentMonth = isSameMonth(day, currentMonth);
@@ -27,6 +26,11 @@ const CalendarElement = ({ day, month }) => {
           {day.format("D")}
         </span>
       </Typography>
+      <div>
+        {schedules.map(e => (
+          <Schedule key={e.id} schedule={e} {...props} />
+        ))}
+      </div>
     </div>
   );
 };
